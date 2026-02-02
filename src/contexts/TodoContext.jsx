@@ -7,23 +7,57 @@ const TodoContext = createContext();
 export const TodoProvider = ({ children }) => {
     //all states and functions of todo will be here
 
-    //array of todos
-    const [todos, setTodo] = useState([]);
+    //array of todos initially empty array
+    const [todos, setTodos] = useState([]);
     //adding todo
-    const addTodo = (todo) => {};
+    const addTodo = (todo) => { 
+        setTodos((prev) => [
+            ...prev,
+            {
+                id: Date.now(),
+                todo: {todo},
+                completed: false,
+            },
+        ]);
+    };
 
     //update todo
-    const updateTodo = (id, newtext) => {};
+    const updateTodo = (id, todo) => {
+        //apply loop then find the todo which u have to update
+        setTodos((prev)=>
+            prev.map((prevtodo)=>
+                (prevtodo.id ===id ? todo :prevtodo)))
 
     //delete todo
-    const deleteTodo = (id) => {};
+    const deleteTodo = (id) => {
+        setTodos((prev)=>{
+            prev.filter((eachvalue)=>{
+                eachvalue.id !==id
+            })
+        })
+    };
 
     //togglecomplete
-    const toggleComplete = (id) => {};
+    const toggleComplete = (id) => {
+        setTodos((prev)=>
+        prev.map((eachvalue)=>{
+            if (eachvalue.id === id)
+            {
+                if(eachvalue.completed=== false)
+                {
+                    eachvalue.completed = true
+                }
+                else
+                {
+                    eachvalue.completed = false
+                }
+            }
+        }))
+    };
 
     /*store all the functions ,states name in one variable (value) and then pass this variable to
   value attribute */
-    const value = { text };
+    const value = { todos, setTodos, addTodo, updateTodo ,deleteTodo,toggleComplete };
     return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
 };
 
