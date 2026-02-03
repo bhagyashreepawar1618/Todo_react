@@ -9,14 +9,12 @@ export const TodoProvider = ({ children }) => {
 
     //array of todos initially empty array
     const [todos, setTodos] = useState([]);
-    //adding todo
+    //adding todo (todo id an object {})
     const addTodo = (todo) => {
         setTodos((prev) => [
             ...prev,
             {
-                id: Date.now(),
-                todo: { todo },
-                completed: false,
+                ...todo,
             },
         ]);
     };
@@ -29,11 +27,7 @@ export const TodoProvider = ({ children }) => {
 
     //delete todo
     const deleteTodo = (id) => {
-        setTodos((prev) => {
-            prev.filter((eachvalue) => {
-                eachvalue.id !== id;
-            });
-        });
+        setTodos((prev) => prev.filter((eachvalue) => eachvalue.id !== id));
     };
 
     //togglecomplete
