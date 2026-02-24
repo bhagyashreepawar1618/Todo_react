@@ -9,7 +9,9 @@ export const TodoProvider = ({ children }) => {
 
     //array of todos initially empty array
     const [todos, setTodos] = useState([]);
-    //adding todo (todo id an object {})
+
+    
+    //adding todo (todo is an object {})
     const addTodo = (todo) => {
         setTodos((prev) => [
             ...prev,
